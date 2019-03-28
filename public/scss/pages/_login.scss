@@ -1,0 +1,32 @@
+﻿.auth-form-box {
+    background-color: $color1;
+    margin: 80px auto;
+    border: 1px solid $color13;
+    max-width: 350px;
+    padding: 16px;
+    border-radius: 5px;
+
+    .btn-submit {
+        display: block;
+        margin: 15px auto 0 auto;
+    }
+}
+
+.auth-form-input {
+    width: 100%;
+    margin-top: 2px;
+    border: 1px solid $color16;
+    height: 36px;
+    padding: 0 5px;
+}
+
+.auth-form-label {
+    display: inline-block;
+    padding-top: 10px;
+}
+
+.auth-form-error {
+    font-size: 12px;
+    color: $color11;
+    margin: 3px 0;
+}

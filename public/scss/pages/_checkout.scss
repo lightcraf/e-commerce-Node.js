@@ -1,0 +1,42 @@
+﻿.checkout-form {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.checkout-form-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid $color16;
+    border-radius: 3px;
+}
+  
+.checkout-form-label {
+    display: block;
+    margin: 20px 0 10px 0;
+}
+
+.checkout-form-error {
+    color: $color11;
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+.checkout-form-payment-options {
+    margin-bottom: 74px;
+
+    li {
+        display: block;
+        float: left;
+        width: 40px;
+        margin-right: 10px;
+    }
+}
+
+.card-info-box {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-info-item {
+    max-width: 140px;
+}

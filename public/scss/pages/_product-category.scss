@@ -1,0 +1,42 @@
+﻿.shop-categories-item {
+    max-width: 280px;
+    float: left;
+    margin: 20px 15px;
+
+    &:hover .shop-categories-text {
+        background-color: $color10;
+    }
+
+    &:hover p, &:hover h2 {
+        color: $color1;
+    }
+}
+
+.shop-categories-box {
+    display: block;
+}
+
+.shop-categories-image {
+    display: block;
+    background-color: $color15;
+}
+
+.shop-categories-text {
+    background-color: $color1;
+    text-align: center;
+    padding: 12px 15px 8px;
+    transition: all 0.3s;
+
+    h2 {
+        margin: 0;
+        color: $color2;
+        text-transform: uppercase;
+        font-size: 18px;
+    }
+
+    p {
+        margin: 5px 0 0 0;
+        color: $color17;
+        font-size: 14px;
+    }
+}
