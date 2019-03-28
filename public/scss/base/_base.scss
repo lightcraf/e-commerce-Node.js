@@ -1,1 +1,29 @@
+﻿* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
 
+body {
+    background-color: $color1;
+    display: -ms-flexbox;
+    display: flex;
+    min-height: 100vh;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+a {
+    text-decoration: none;
+    color: $color3;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.main {
+    flex: 1 1;
+}
