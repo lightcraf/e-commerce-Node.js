@@ -1,1 +1,133 @@
+﻿<footer class="footer">
+    <div class="footer-box">
+        <div class="flex-row">
+            <div class="flex-col-4">
+                <div class="footer-shop-logo">
+                    <img src="/images/shop-logo.png" class="responsive-img" alt="Online shop" title="Online shop">
+                </div>
+                <p class="footer-shop-about">
+                    Vivamus consequat lacus quam, nec egestas quam egestas sit amet.
+                    Suspendisse et risus gravida tellus aliquam ullamcorper.
+                    Pellentesque elit dolor, ornare ut lorem nec, convallis nibh accumsan lacus morbi leo lipsum.
+                </p>
+            </div>
+            <div class="flex-col-2">
+                <h4 class="footer-nav-title">Quick Links</h4>
+                <ul class="footer-nav">
+                    <li class="footer-nav-item">
+                        <a href="#" class="footer-nav-link">My Account</a>
+                    </li>
+                    <li class="footer-nav-item">
+                        <a href="/cart" class="footer-nav-link">My Cart</a>
+                    </li>
+                    <li class="footer-nav-item">
+                        <a href="#" class="footer-nav-link">Offers</a>
+                    </li>
+                    <li class="footer-nav-item">
+                        <a href="#" class="footer-nav-link">News</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="flex-col-2">
+                <h4 class="footer-nav-title">Support</h4>
+                <ul class="footer-nav">
+                    <li class="footer-nav-item">
+                        <a href="#" class="footer-nav-link">Terms & Conditions</a>
+                    </li>
+                    <li class="footer-nav-item">
+                        <a href="#" class="footer-nav-link">Shipping & Return</a>
+                    </li>
+                    <li class="footer-nav-item">
+                        <a href="#" class="footer-nav-link">F.A.Q</a>
+                    </li>
+                    <li class="footer-nav-item">
+                        <a href="#" class="footer-nav-link">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="flex-col-4">
+                <h4 class="footer-nav-title">Contact</h4>
+                <ul class="footer-nav">
+                    <li class="footer-nav-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Miami, S Miami Ave, SW 20th, Store No.1</span>
+                    </li>
+                    <li class="footer-nav-item">
+                        <i class="fas fa-phone"></i>
+                        <a href="tel:+0123 456 789" class="footer-nav-link">+0123 456 789</a>
+                    </li>
+                    <li class="footer-nav-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:office@yoursite.com" class="footer-nav-link">office@yoursite.com</a>
+                    </li>
+                    <li class="footer-nav-item">
+                        <i class="fas fa-thumbs-up"></i>
+                        <ul class="footer-social-icons">
+                            <li>
+                                <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            </li>
+                            <li>
+                                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="#" title="Google plus"><i class="fab fa-google-plus-g"></i></a>
+                            </li>
+                            <li>
+                                <a href="#" title="Linkedin"><i class="fab fa-linkedin-in"></i></a>
+                            </li>
+                            <li>
+                                <a href="#" title="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-info">
+        <div class="flex-row">
+            <div class="flex-col-12">
+                <div class="footer-copyright">
+                    <span>© Copyright 2018. All Right Reserved.</span>
+                </div>
+                <ul class="footer-payment-options">
+                    <li>
+                        <img src="images/visa.png" class="responsive-img" alt="visa" title="visa">
+                    </li>
+                    <li>
+                        <img src="images/mastercard.png" class="responsive-img" alt="mastercard" title="mastercard">
+                    </li>
+                    <li>
+                        <img src="images/discover.png" class="responsive-img" alt="discover" title="discover">
+                    </li>
+                    <li>
+                        <img src="images/paypal.png" class="responsive-img" alt="paypal" title="paypal">
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
 
+<script>
+    function getItemsInCart() {
+        if (typeof (Storage) !== "undefined") {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            let itemsInCart = 0;
+            for (let i = 0; i < cart.length; i++) {
+                itemsInCart += parseInt(cart[i].quantity, 10);
+            }
+            document.getElementById("js-products-count").innerHTML = itemsInCart;
+        }
+    }
+
+    getItemsInCart();
+</script>
+
+<% if (isLogged) { %>
+    <script>
+        document.getElementById("js-logout").addEventListener("click", function() {
+            localStorage.removeItem("cart");
+        });
+    </script>
+<% } %>

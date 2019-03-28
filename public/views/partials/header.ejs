@@ -1,0 +1,38 @@
+﻿<header>
+    <div class="top-bar">
+        <div class="flex-row">
+            <div class="flex-col-12">
+                <% if (isLogged) { %>
+                    <a href="#" class="top-bar-link"><%= username %></a>
+                    <a href="/logout" id="js-logout" class="top-bar-link">Logout</a>
+                <% } else { %>
+                    <a href="/login" class="top-bar-link">Login</a>
+                    <a href="/signup" class="top-bar-link">Create account</a>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex-row header">
+        <div class="flex-col-2">
+            <div class="logo">
+                <a href="/">
+                    <img class="responsive-img" src="/images/shop-logo.png" alt="Online shop" title="Online shop">
+                </a>
+            </div>
+        </div>
+        <div class="flex-col-8">
+            <form method="get" action="/search" name="search-form" class="header-search-form">
+                <input type="text" autocomplete="off" name="q" placeholder="Search"><button class="search-form-btn" type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+        <div class="flex-col-2">
+            <div class="shopping-cart-wrapper">
+                <a href="/cart" class="shopping-cart" title="Cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="js-products-count">0</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
