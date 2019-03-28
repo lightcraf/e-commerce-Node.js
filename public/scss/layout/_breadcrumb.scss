@@ -1,0 +1,27 @@
+﻿.breadcrumb {
+    padding: 10px 16px;
+    margin: 20px 15px;
+    list-style: none;
+    background-color: $color15;
+}
+
+.breadcrumb-item {
+    display: inline;
+    font-size: 18px;
+
+    & + &:before {
+        padding: 8px;
+        color: $color2;
+        content: "/\00a0";
+    }
+
+    & a {
+        color: $color3;
+        text-decoration: none;
+    
+        &:hover {
+            color: $color4;
+            text-decoration: underline;
+        }
+    }
+}

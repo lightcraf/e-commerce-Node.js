@@ -1,1 +1,78 @@
+﻿.footer {
+    background-color: $color7;
+    min-height: 100px;
+}
 
+.footer-box {
+    padding: 30px 0;
+}
+
+.footer-shop-logo {
+    max-width: 60px;
+}
+
+.footer-shop-about {
+    font-size: 14px;
+    color: $color1;
+}
+
+.footer-nav-title {
+    margin: 0;
+    text-transform: uppercase;
+    color: $color17;
+}
+
+.footer-nav-item {
+    margin: 10px 0;
+
+    i {
+        float: left;
+        color: $color10;
+        margin-right: 10px;
+    }
+
+    span {
+        color: $color1;
+    }
+}
+
+.footer-nav-link {
+    color: $color1;
+
+    &:hover {
+        color: $color10;
+    }
+}
+
+.footer-social-icons {
+    li {
+        display: block;
+        float: left;
+    }
+
+    i {
+        color: $color1;
+    }
+}
+
+.footer-info {
+    background-color: $color12;
+}
+
+.footer-copyright {
+    float: left;
+    font-size: 14px;
+    padding-top: 16px;
+}
+
+.footer-payment-options {
+    float: right;
+    padding-top: 3px;
+
+    li {
+        display: block;
+        float: left;
+        width: 40px;
+        margin-right: 10px;
+    }
+}

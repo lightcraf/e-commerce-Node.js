@@ -1,0 +1,25 @@
+﻿.flex-row {
+    display: flex;
+    flex-wrap: wrap;
+    @media all and (max-width: $desktop-width) {
+        flex-direction: column;
+    }
+}
+
+.flex-col-1 {flex: 0 0 8.33%;}
+.flex-col-2 {flex: 0 0 16.66%;}
+.flex-col-3 {flex: 0 0 25%;}
+.flex-col-4 {flex: 0 0 33.33%;}
+.flex-col-5 {flex: 0 0 41.66%;}
+.flex-col-6 {flex: 0 0 50%;}
+.flex-col-7 {flex: 0 0 58.33%;}
+.flex-col-8 {flex: 0 0 66.66%;}
+.flex-col-9 {flex: 0 0 75%;}
+.flex-col-10 {flex: 0 0 83.33%;}
+.flex-col-11 {flex: 0 0 91.66%;}
+.flex-col-12 {flex: 0 0 100%;}
+
+[class*="flex-col-"] {
+    padding-left: 15px;
+    padding-right: 15px;
+}
