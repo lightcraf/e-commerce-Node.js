@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title><%= model %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <% include partials/head %>
+</head>
+
+<body>
+    <% include partials/header %>
+
+    <main class="main">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="/products">Products</a></li>
+            <li class="breadcrumb-item">
+                <a href="/products/<%= category %>"><%= category.charAt(0).toUpperCase() + category.slice(1) %></a>
+            </li>
+            <li class="breadcrumb-item"><%= model %></li>
+        </ul>
+
+        <div class="flex-row product-box">
+            <div class="flex-col-6">
+                <div class="product-slideshow-container">
+                    <div class="product-slide fade">
+                        <img src="/images/products/<%= image %>" alt="<%= model %>">
+                    </div>
+                    <div class="product-slide fade">
+                        <img src="/images/products/<%= image %>" alt="<%= model %>">
+                    </div>
+                    <div class="product-slide fade">
+                        <img src="/images/products/<%= image %>" alt="<%= model %>">
+                    </div>
+                    <span class="product-slide-prev">&#10094;</span>
+                    <span class="product-slide-next">&#10095;</span>
+                </div>
+            </div>
+            <div class="flex-col-6">
+                <div id="js-main-product" data-model="<%= model %>" data-image="<%= image %>"
+                    data-price="<%= price %>" data-product_id="<%= id %>" data-quantity="1">
+                    <h3 class="product-title"><%= model %></h3>
+
+                    <ul class="product-info">
+                        <li><span>Availability:</span> In stock</li>
+                        <li><span>Product code:</span> #<%= id %></li>
+                        <li>
+                            <span>Tags:</span>
+                            <a href="#">Fingerprint Sensor</a>, <a href="#">Android</a>,
+                            <a href="#">GPS</a>, <a href="#">Qualcomm Snapdragon</a>
+                        </li>
+                    </ul>
+
+                    <div class="product-description-box">
+                        <p>
+                            Donec sem lorem laoreet tempor un risus vitae, rutrum sodales nibh suspendisse est
+                            congue metus nunc, id viverra elit loreti rhoncus quis consecteur es. Donec pulvinar
+                            tempor lorem a pretium justo interdum.
+                        </p>
+                        <ul>
+                            <li>CPU: Qualcomm Snapdragon 845 Octa Core 2.96GHz</li>
+                            <li>System: Android 8.1</li>
+                            <li>Storage: 6GB RAM + 64GB ROM</li>
+                            <li>Camera: 12.0MP + 8.0MP rear camera + 8.0MP front camera</li>
+                            <li>Bluetooth: 5.0</li>
+                        </ul>
+                    </div>
+
+                    <p class="product-price">Price: <%= price %> &#8372;</p>
+
+                    <button id="js-add-to-cart" class="btn-submit">Add to cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="myModal" class="js-cart-modal cart-modal" role="dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="js-close-cart-modal close-modal">&times;</span>
+                    <h2>Item Successfully Added to Your Cart</h2>
+                </div>
+                <div class="modal-body">
+                    <p>You just added <span class="js-cart-modal-item"></span></p>
+                    <p>You have <span class="js-cart-modal-qty"></span> item(s) in your cart</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="/" class="js-close-cart-modal modal-btn-continue-shop" role="button">Continue Shopping</a>
+                    <a href="/cart" class="modal-btn-view-cart">View Cart</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <% include partials/footer %>
+
+    <script>
+        (function () {
+            let slideIndex = 1;
+
+            showSlides(slideIndex);
+
+            document.getElementsByClassName("product-slide-prev")[0].addEventListener("click", function () {
+                showSlides(slideIndex += -1);
+            });
+
+            document.getElementsByClassName("product-slide-next")[0].addEventListener("click", function () {
+                showSlides(slideIndex += 1);
+            });
+
+            function showSlides(n) {
+                let slides = document.getElementsByClassName("product-slide");
+                if (n > slides.length) { slideIndex = 1 }
+                if (n < 1) { slideIndex = slides.length }
+
+                for (let i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none";
+                }
+
+                slides[slideIndex - 1].style.display = "block";
+            }
+        })();
+
+        (function () {
+            const product = document.getElementById("js-main-product");
+            const productId = product.getAttribute("data-product_id");
+
+            if (typeof (Storage) !== "undefined") {
+                const cart = JSON.parse(localStorage.getItem("cart")) || [];
+                for (let i = 0; i < cart.length; i++) {
+                    if (cart[i].id === productId) {
+                        document.getElementById("js-add-to-cart").insertAdjacentHTML("beforebegin", '<div class="product-in-cart-message"><i class="fas fa-check"></i> This product is already in your cart</div>');
+                        document.getElementById("js-add-to-cart").outerHTML = "";
+                    }
+                }
+            }
+        })();
+    </script>
+
+    <script>
+        window.addEventListener("click", function(event) {
+            if (event.target.classList.contains("js-cart-modal")) {
+                document.getElementsByClassName("js-cart-modal")[0].style.display = "none";
+            }
+        });
+
+        document.getElementsByClassName("js-cart-modal")[0].addEventListener("click", function(event) {
+            if (event.target.classList.contains("js-close-cart-modal")) {
+                event.preventDefault();
+                this.style.display = "none";
+            }
+        });
+
+        document.getElementById("js-add-to-cart").addEventListener("click", function () {
+            const product = document.getElementById("js-main-product");
+            const productId = product.getAttribute("data-product_id");
+            const image = product.getAttribute("data-image");
+            const price = product.getAttribute("data-price");
+            const model = product.getAttribute("data-model");
+            const quantity = product.getAttribute("data-quantity");
+
+            document.getElementsByClassName("js-cart-modal")[0].style.display = "block";
+            document.getElementsByClassName("js-cart-modal-item")[0].innerHTML = model;
+ 
+            const productData = {
+                id: productId,
+                model: model,
+                href: window.location.pathname,
+                image: image,
+                quantity: 1,
+                price: price
+            };
+
+            if (typeof (Storage) !== "undefined") {
+                const cart = JSON.parse(localStorage.getItem("cart")) || [];
+                let itemsInCart = 0;
+
+                for (let i = 0; i < cart.length; i++) {
+                    itemsInCart += parseInt(cart[i].quantity, 10);
+                }
+
+                document.getElementsByClassName("js-cart-modal-qty")[0].innerHTML = itemsInCart + 1;      
+
+                for (let i = 0; i < cart.length; i++) {
+                    if (cart[i].id === productId) {
+                        return;
+                    }
+                }
+
+                cart.push(productData);
+                localStorage.setItem("cart", JSON.stringify(cart));
+                getItemsInCart();
+                this.insertAdjacentHTML("beforebegin", '<div class="product-in-cart-message"><i class="fas fa-check"></i> This product is already in your cart</div>');
+                this.outerHTML = "";
+            }
+        });
+    </script>
+
+</body>
+
+</html>

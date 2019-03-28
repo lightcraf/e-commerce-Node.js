@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title><%= pageTitle %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <% include partials/head %>
+    <!-- <base href="/"> -->
+</head>
+
+<body>
+    <% include partials/header %>
+    <main class="main">
+        <div class="flex-row">
+            <div class="flex-col-2">
+                <div class="filter-menu">
+                    <span class="filter-menu-btn"><i class="fas fa-bars"></i></span>
+                </div>
+                <div class="filter-wrapper">
+                    <div class="filter-list">
+                        <p class="filter-list-title">Brand</p>
+                        <% for (let i = 0; i < producerList.length; i++) {%>
+                            <label class="check-container">
+                            <% if (queryProducer.includes(producerList[i])) { %>
+                                <input type="checkbox" class="filter-item" value="<%= producerList[i] %>" checked>
+                            <% } else { %>
+                                <input type="checkbox" class="filter-item" value="<%= producerList[i] %>">
+                            <% } %>
+                                <span class="checkmark"></span>
+                                <%= producerList[i] %>
+                            </label>
+                        <% } %>
+                        <input type="submit" id="js-filter-submit" class="filter-apply-btn" value="Apply">
+                    </div>
+                </div>
+            </div>
+            <div class="flex-col-10">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/products">Products</a></li>
+                    <li class="breadcrumb-item"><%= breadcrumbPath %></li>
+                </ul>
+
+                <div class="sort-wrapper">
+                    <label for="js-filter-sort">Sort by</label>
+                    <select id="js-filter-sort">
+                        <% for (let propName in sortOptions) {%>  
+                            <% if (sortSelected == propName) { %>
+                                <option value="<%= propName %>" selected><%= sortOptions[propName] %></option>
+                            <% } else { %>
+                                <option value="<%= propName %>"><%= sortOptions[propName] %></option>
+                            <% } %>   
+                        <% } %>
+                    </select>
+                </div>
+                
+                <div class="catalog-goods clearfix">
+                <% for (let i = 0; i < products.length; i++) { %>
+                    <div class="goods-wrapper">
+                        <div class="goods-item">
+                            <div class="goods-img-wrapper">
+                                <a href="/<%= products[i].model.toLowerCase().replace(/[^a-z0-9]+/gi, '_') %>/<%= products[i].id %>">
+                                    <img src="/images/products/<%= products[i].image %>" alt="<%= products[i].model %>" title="<%= products[i].model %>">
+                                </a>
+                            </div>
+                            <div class="goods-title-wrapper">
+                                <a href="/<%= products[i].model.toLowerCase().replace(/[^a-z0-9]+/gi, '_') %>/<%= products[i].id %>" class="goods-title"><%= products[i].model %></a>
+                            </div>
+                            <div class="goods-price">
+                                <p><%= products[i].price %> <span class="goods-price-currency">&#8372;</span></p>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+                </div>
+
+                <% if (pages > 1) { %>
+                    <ul id="js-pagination" class="pagination">
+                        <% if (currentPage == 1) { %>
+                            <li class="page-item disabled"><span class="page-link">First</span></li>
+                        <% } else { %>
+                            <li class="page-item"><span class="page-link" data-page="1">First</span></li>
+                        <% } %>
+                        <% let i = (currentPage > 3 ? currentPage - 2 : 1) %>
+                        <% if (i !== 1) { %>
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                        <% } %>
+                        <% for (; i <= (currentPage + 2) && i <= pages; i++) { %>
+                            <% if (i == currentPage) { %>
+                                <li class="page-item active"><span class="page-link"><%= i %></span></li>
+                            <% } else { %>
+                                <li class="page-item"><span class="page-link" data-page="<%= i %>"><%= i %></span></li>
+                            <% } %>
+                            <% if (i == currentPage + 2 && i < pages) { %>
+                                <li class="page-item disabled"><span class="page-link">...</span></li>
+                            <% } %>
+                        <% } %>
+                        <% if (currentPage == pages) { %>
+                            <li class="page-item disabled"><span class="page-link">Last</span></li>
+                        <% } else { %>
+                            <li class="page-item"><span class="page-link" data-page="<%= pages %>">Last</span></li>
+                        <% } %>
+                    </ul>
+                <% } %> 
+            </div>
+        </div>
+    </main>
+
+    
+    <% include partials/footer %>
+
+    <script>
+        document.getElementsByClassName("filter-menu-btn")[0].addEventListener("click", function () {
+            document.getElementsByClassName("filter-wrapper")[0].classList.toggle("active");
+        });
+
+        (function () {
+            if (document.body.contains(document.getElementById("js-pagination"))) {
+                document.getElementById("js-pagination").addEventListener("click", function (event) {
+                    const target = event.target;
+                    if (target.nodeName == "SPAN" && target.hasAttribute("data-page")) {
+                        const url = new URLSearchParams(location.search);
+                        url.set("page", target.getAttribute("data-page"));
+                        location.assign(location.pathname + "?" + decodeURIComponent(url));
+                    }
+                });
+            }
+        })();
+
+        document.getElementById("js-filter-sort").addEventListener("change", function (event) {
+            const url = new URLSearchParams(location.search);
+            url.delete("page");
+            url.set("sort", event.target.value);
+            location.assign(location.pathname + "?" + decodeURIComponent(url));
+        });
+
+        document.getElementById("js-filter-submit").addEventListener("click", function (event) {
+            const producerArr = [];
+            const producerInputs = document.getElementsByClassName("filter-item");
+
+            for (let i = 0; i < producerInputs.length; i++) {
+                if (producerInputs[i].checked) {
+                    producerArr.push(producerInputs[i].value);
+                }
+            }
+
+            const url = new URLSearchParams(location.search);
+            url.delete("page");
+
+            if (producerArr.length === 0) {
+                url.delete("producer");
+            } else {
+                url.set("producer", producerArr.join(";"));
+            }
+
+            location.assign(location.pathname + "?" + decodeURIComponent(url));
+        });
+    </script>
+</body>
+
+</html>

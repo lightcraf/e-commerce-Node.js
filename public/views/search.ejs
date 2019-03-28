@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <% include partials/head %>
+</head>
+
+<body>
+    <% include partials/header %>
+
+    <main class="main">
+        <div class="catalog-goods clearfix">
+            <% if (products.length > 0) { %>
+                <% for(var i = 0; i < products.length; i++) {%>
+                <div class="goods-wrapper">
+                    <div class="goods-item">
+                        <div class="goods-img-wrapper">
+                            <a href="/<%= products[i].model.toLowerCase().replace(/[^a-z0-9]+/gi, '_') %>/<%= products[i].id %>">
+                                <img src="/images/products/<%= products[i].image %>" alt="<%= products[i].model %>" title="<%= products[i].model %>">
+                            </a>
+                        </div>
+                        <div class="goods-title-wrapper">
+                            <a href="/<%= products[i].model.toLowerCase().replace(/[^a-z0-9]+/gi, '_') %>/<%= products[i].id %>"
+                                class="goods-title"><%= products[i].model %>
+                            </a>
+                        </div>
+                        <div class="goods-price">
+                            <p><%= products[i].price %> <span class="goods-price-currency"> &#8372;</span></p>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+            <% } else { %>
+                <p>There are no results for <%= searchInput %></p>
+            <% } %>
+        </div>
+
+        <% if (pages > 1) { %>
+            <ul id="js-pagination" class="pagination">
+                <% if (currentPage == 1) { %>
+                    <li class="page-item disabled"><span class="page-link">First</span></li>
+                <% } else { %>
+                    <li class="page-item"><span class="page-link" data-page="1">First</span></li>
+                <% } %>
+                <% let i = (currentPage > 3 ? currentPage - 2 : 1) %>
+                <% if (i !== 1) { %>
+                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                <% } %>
+                <% for (; i <= (currentPage + 2) && i <= pages; i++) { %>
+                    <% if (i == currentPage) { %>
+                        <li class="page-item active"><span class="page-link"><%= i %></span></li>
+                    <% } else { %>
+                        <li class="page-item"><span class="page-link" data-page="<%= i %>"><%= i %></span></li>
+                    <% } %>
+                    <% if (i == currentPage + 2 && i < pages) { %>
+                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                    <% } %>
+                <% } %>
+                <% if (currentPage == pages) { %>
+                    <li class="page-item disabled"><span class="page-link">Last</span></li>
+                <% } else { %>
+                    <li class="page-item"><span class="page-link" data-page="<%= pages %>">Last</span></li>
+                <% } %>
+            </ul>
+        <% } %>
+    </main>
+
+    <% include partials/footer %>
+    <script>
+        (function () {
+            if (document.body.contains(document.getElementById("js-pagination"))) {
+                document.getElementById("js-pagination").addEventListener("click", function (event) {
+                    const target = event.target;
+                    if (target.nodeName == "SPAN" && target.hasAttribute("data-page")) {
+                        const url = new URLSearchParams(location.search);
+                        url.set("page", target.getAttribute("data-page"));
+                        location.assign(location.pathname + "?" + decodeURIComponent(url));
+                    }
+                });
+            }
+        })();
+    </script>
+</body>
+
+</html>

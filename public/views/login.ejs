@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <% include partials/head %>
+</head>
+
+<body>
+    <% include partials/header %>
+
+    <main class="main">
+        <form class="auth-form-box" action="/login" method="post">
+            <label class="auth-form-label" for="username">Username:</label>
+            <input class="auth-form-input" type="text" name="username" id="username">
+            <label class="auth-form-label" for="password">Password:</label>
+            <input class="auth-form-input" type="password" name="password" id="password">
+            <input type="hidden" name="csrf" value="<%= csrf %>">
+            <% if (loginError) { %>
+                <p class="auth-form-error">Incorrect username or password.</p>
+            <% } %>
+            <button class="btn-submit" type="submit">Login</button>
+        </form>
+    </main>
+    
+    <% include partials/footer %>
+</body>
+
+</html>

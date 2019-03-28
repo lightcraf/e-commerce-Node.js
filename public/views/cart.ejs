@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <% include partials/head %>
+</head>
+
+<body>
+    <% include partials/header %>
+
+    <main class="main">
+        <div id="js-cart-container" class="cart-table-box">
+            <table id="js-cart-table" class="cart-table"></table>
+        </div>
+        <p class="cart-table-total-sum">Order total: <span class="js-cart-total-sum">0</span></p>
+        <form action="/cart" method="POST" id="js-cart-summary">
+            <input type="hidden" name="cart">
+            <input type="hidden" name="csrf" value="<%= csrf %>">
+            <button type="submit" class="btn-submit cart-table-btn-submit">Proceed to checkout</button>
+        </form>
+    </main>
+
+    <% include partials/footer %>
+
+    <script>
+        function initCart() {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            let totalSum = 0;
+            let out = '';
+
+            if (cart.length === 0 || Object.keys(cart).length === 0) {
+                document.getElementById("js-cart-container").innerHTML = "You don't have any items in your cart."
+                document.getElementsByClassName("js-cart-total-sum")[0].innerHTML = totalSum + " &#8372;";
+                document.getElementById("js-cart-summary").style.display = "none";
+            } else {
+                for (let i = 0; i < cart.length; i++) {
+                    totalSum += cart[i].price * cart[i].quantity;
+                    out += '<tr data-product_id="' + cart[i].id + '">' +
+                        '<td><div class="cart-table-img-wrapper"><img src="images/products/' + cart[i].image + '" alt="' + cart[i].model + '"></div></td>' +
+                        '<td><a href="' + cart[i].href + '" class="goods-title">' + cart[i].model + '</a></td>' +
+                        '<td><input type="text" class="cart-table-quantity js-cart-product-qty" data-product_id="' + cart[i].id + '" value="' + cart[i].quantity + '"></td>' +
+                        '<td>' + cart[i].price + '</td>' +
+                        '<td>' + cart[i].price * cart[i].quantity + '</td>' +
+                        '<td><i class="far fa-trash-alt cart-table-trash-bin js-cart-table-remove-product" data-product_id="' + cart[i].id + '" title="Remove"></i></td>' +
+                        '</tr>';
+                }
+                document.getElementById("js-cart-table").innerHTML = '<th></th><th>Product</th><th>Quantity</th><th>Unit price</th><th>Total</th><th>Remove</th>' + out;
+                document.getElementsByClassName("js-cart-total-sum")[0].innerHTML = totalSum + " &#8372;";
+            }
+        }
+        initCart();
+
+        document.getElementById("js-cart-container").addEventListener("click", function (event) {
+            if (event.target.classList.contains("js-cart-table-remove-product") && event.target.nodeName == "I") {
+                const productId = event.target.getAttribute("data-product_id");
+                const cart = JSON.parse(localStorage.getItem("cart")) || [];
+                for (let i = 0; i < cart.length; i++) {
+                    if (cart[i].id == productId) {
+                        cart.splice(i, 1);
+                    }
+                }
+                localStorage.setItem("cart", JSON.stringify(cart));
+                getItemsInCart();
+                initCart();
+            }
+        });
+    
+        document.getElementById("js-cart-container").addEventListener("focusout", function (event) {
+            const target = event.target;
+
+            if (target.classList.contains("js-cart-product-qty") && target.nodeName == "INPUT") {
+                let quantity = Math.floor(Number(target.value));
+
+                if (quantity < 1) {
+                    quantity = 1;
+                } else if (quantity > 100) {
+                    quantity = 100;
+                }
+
+                if (typeof quantity === 'number' && !isNaN(quantity)) {
+                    const productId = event.target.getAttribute("data-product_id");
+                    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+                    for (let i = 0; i < cart.length; i++) {
+                        if (cart[i].id == productId) {
+                            cart[i].quantity = quantity;
+                        }
+                    }
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    initCart();
+                    getItemsInCart();
+                } else {
+                    target.value = 1;
+                }
+            }
+        });
+
+        document.getElementById("js-cart-summary").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            for (let i = 0; i < cart.length; i++) {
+                delete cart[i].model;
+                delete cart[i].href;
+                delete cart[i].image;
+                delete cart[i].price;
+            }
+            
+            document.getElementsByName("cart")[0].value = JSON.stringify(cart);
+            this.submit();
+        });
+    </script>
+</body>
+
+</html>

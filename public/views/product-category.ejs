@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <% include partials/head %>
+</head>
+
+<body>
+    <% include partials/header %>
+    
+    <main class="main">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item">Products</li>
+        </ul>
+
+        <div class="shop-categories-wrapper">
+            <div class="shop-categories-item">
+                <a class="shop-categories-box" href="/products/phones">
+                    <img src="/images/smartphone.png" class="shop-categories-image responsive-img" alt="smartphone" title="smartphone">
+                    <div class="shop-categories-text">
+                        <h2>Smartphones</h2>
+                        <p>Lorem ipsum dolor</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="shop-categories-item">
+                <a class="shop-categories-box" href="/products/tablets">
+                    <img src="/images/tablet.png" class="shop-categories-image responsive-img" alt="tablet" title="tablet">
+                    <div class="shop-categories-text">
+                        <h2>Tablets</h2>
+                        <p>Lorem ipsum dolor</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <% include partials/footer %>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sign up</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <% include partials/head %>
+</head>
+
+<body>
+    <% include partials/header %>
+
+    <main class="main">
+        <form action="/signup" method="post" autocomplete="off" class="auth-form-box">
+            <label class="auth-form-label" for="username">Username:</label>
+            <input class="auth-form-input" type="text" name="username" id="username" value="<%= username %>" pattern="^[a-zA-Z0-9]{2,30}$" required>
+            <% if (usernameError) { %>
+                <p class="auth-form-error">Username must be between 2 and 30 characters long.</p>
+            <% } %>
+            <% if (usernameError2) { %>
+                <p class="auth-form-error">This username is already taken.</p>
+            <% } %>
+            <label class="auth-form-label" for="email">Email:</label>
+            <input class="auth-form-input" type="text" name="email" id="email" value="<%= email %>" pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" required>
+            <% if (emailError) { %>
+                <p class="auth-form-error">Invalid email</p>
+            <% } %>
+            <label class="auth-form-label" for="password">Password:</label>
+            <input class="auth-form-input" type="password" name="password" id="password" pattern="^.{6,}$" required>
+            <input type="hidden" name="csrf" value="<%= csrf %>">
+            <% if (passwordError) { %>
+                <p class="auth-form-error">Password must be at least 6 characters.</p>
+            <% } %>
+            <p>By creating an account you agree to our <a href="/join">Terms &amp; Privacy</a>.</p>
+            <button class="btn-submit" type="submit">Signup</button>
+        </form>
+    </main>
+    
+    <% include partials/footer %>
+</body>
+
+</html>

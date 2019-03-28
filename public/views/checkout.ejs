@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <% include partials/head %>
+</head>
+
+<body>
+    <% include partials/header %>
+
+    <main class="main">
+        <div class="cart-table-box">
+            <table class="cart-table">
+                <th></th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Unit price</th>
+                <th>Total</th>
+                <% for (let i = 0; i < products.length; i++) { %>
+                <tr>
+                    <td>
+                        <div class="cart-table-img-wrapper"><img src="/images/products/<%= products[i].image %>" alt="<%= products[i].model %>"></div>
+                    </td>
+                    <td><a href="/<%= products[i].model.toLowerCase().replace(/[^a-z0-9]+/gi, '_') %>/<%= products[i].id %>" class="goods-title">
+                            <%= products[i].model %></a></td>
+                    <td>
+                        <%= products[i].quantity %>
+                    </td>
+                    <td>
+                        <%= products[i].price %>
+                    </td>
+                    <td>
+                        <%= products[i].price * products[i].quantity %>
+                    </td>
+                </tr>
+                <% } %>
+            </table>
+            <a href="/cart">Edit orders</a>
+        </div>
+        <p class="cart-table-total-sum">Order total: <%= totalSum %> &#8372;</p>
+
+        <form action="/checkout" method="POST" id="js-order-summary" class="checkout-form">
+            <div class="flex-row">
+                <div class="flex-col-6">
+                    <h3>Billing address</h3>
+                    <label class="checkout-form-label" for="fisrtname">First name</label>
+                    <input class="checkout-form-input" type="text" id="firstname" name="firstname" placeholder="John" value="<%= firstname %>" required>
+                    <% if (firstnameError) { %>
+                        <p class="checkout-form-error">First name must be between 2 and 50 characters long.</p>
+                    <% } %>
+                    <label class="checkout-form-label" for="lastname">Last name</label>
+                    <input class="checkout-form-input" type="text" id="lastname" name="lastname" placeholder="Dow" value="<%= lastname %>" required>
+                    <% if (lastnameError) { %>
+                        <p class="checkout-form-error">Last name must be between 2 and 50 characters long.</p>
+                    <% } %>
+                    <label class="checkout-form-label" for="email">Email</label>
+                    <input class="checkout-form-input" type="text" id="email" name="email" placeholder="john@example.com" value="<%= email %>" required>
+                    <% if (emailError) { %>
+                        <p class="checkout-form-error">Invalid email</p>
+                    <% } %>
+                    <label class="checkout-form-label" for="adr">Address</label>
+                    <input class="checkout-form-input" type="text" id="adr" name="address" placeholder="542 W. 15th Street" value="<%= address %>" required>
+                </div>
+                <div class="flex-col-6">
+                    <h3>Payment</h3>
+                    <label class="checkout-form-label">Accepted cards</label>
+                    <ul class="checkout-form-payment-options">
+                        <li>
+                            <img class="responsive-img" src="images/visa.png" alt="visa" title="visa">
+                        </li>
+                        <li>
+                            <img class="responsive-img" src="images/mastercard.png" alt="mastercard" title="mastercard">
+                        </li>
+                        <li>
+                            <img class="responsive-img" src="images/discover.png" alt="discover" title="discover">
+                        </li>
+                        <li>
+                            <img class="responsive-img" src="images/paypal.png" alt="paypal" title="paypal">
+                        </li>
+                    </ul>
+                    <label class="checkout-form-label" for="cardnumber">Credit card number</label>
+                    <input class="checkout-form-input" type="text" id="cardnumber" name="cardnumber" placeholder="1111-2222-3333-4444">
+                    <div class="card-info-box">
+                        <div class="card-info-item">
+                            <label class="checkout-form-label" for="expmonth">Exp. month</label>
+                            <input class="checkout-form-input" type="text" id="expmonth" name="expmonth" placeholder="MM">
+                        </div>
+                        <div class="card-info-item">
+                            <label class="checkout-form-label" for="expyear">Exp. year</label>
+                            <input class="checkout-form-input" type="text" id="expyear" name="expyear" placeholder="YY">
+                        </div>
+                        <div class="card-info-item">
+                            <label class="checkout-form-label" for="cvv">CVV</label>
+                            <input class="checkout-form-input" type="text" id="cvv" name="cvv" placeholder="352">
+                        </div>
+                    </div>
+                    <input type="hidden" name="cart">
+                    <input type="hidden" name="csrf" value="<%= csrf %>">
+                </div>
+            </div>
+            <button type="submit" class="btn-submit cart-table-btn-submit">Checkout</button>
+        </form>
+    </main>
+
+    <% include partials/footer %>
+
+    <script>
+        document.getElementById("js-order-summary").addEventListener("submit", function (event) {
+            event.preventDefault();
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            for (let i = 0; i < cart.length; i++) {
+                delete cart[i].model;
+                delete cart[i].href;
+                delete cart[i].image;
+                delete cart[i].price;
+            }
+            document.getElementsByName("cart")[0].value = JSON.stringify(cart);
+            this.submit();
+        });
+    </script>
+</body>
+
+</html>
