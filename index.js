@@ -26,22 +26,22 @@ app.use(session({
 
 const SECRET = "abigsecret";
 
-app.use(function(req, res, next){
+app.use(function(req, res, next) {
     // create a domain for this request
-    var domain = require('domain').create();
+    const domain = require('domain').create();
     // handle errors on this domain
-    domain.on('error', function(err){
+    domain.on('error', function(err) {
         console.error('DOMAIN ERROR CAUGHT\n', err.stack);
         try {
             // failsafe shutdown in 5 seconds
-            setTimeout(function(){
+            setTimeout(function() {
                 console.error('Failsafe shutdown.');
                 process.exit(1);
             }, 5000);
 
             // disconnect from the cluster
-            var worker = require('cluster').worker;
-            if(worker) worker.disconnect();
+            const worker = require('cluster').worker;
+            if (worker) worker.disconnect();
 
             // stop taking new requests
             server.close();
@@ -49,7 +49,7 @@ app.use(function(req, res, next){
             try {
                 // attempt to use Express error route
                 next(err);
-            } catch(error){
+            } catch (error) {
                 // if Express error route failed, try
                 // plain Node response
                 console.error('Express error mechanism failed.\n', error.stack);
@@ -57,7 +57,7 @@ app.use(function(req, res, next){
                 res.setHeader('content-type', 'text/plain');
                 res.end('Server error.');
             }
-        } catch(error){
+        } catch (error) {
             console.error('Unable to send 500 response.\n', error.stack);
         }
     });
