@@ -26,15 +26,15 @@ app.use(session({
 
 const SECRET = "abigsecret";
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     // create a domain for this request
     const domain = require('domain').create();
     // handle errors on this domain
-    domain.on('error', function(err) {
+    domain.on('error', function (err) {
         console.error('DOMAIN ERROR CAUGHT\n', err.stack);
         try {
             // failsafe shutdown in 5 seconds
-            setTimeout(function() {
+            setTimeout(function () {
                 console.error('Failsafe shutdown.');
                 process.exit(1);
             }, 5000);
