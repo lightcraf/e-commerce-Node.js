@@ -7,7 +7,7 @@
     height: 380px;
     float: left;
     position: relative;
-    border: 1px solid $color16;
+    border: 1px solid $silver;
     margin: 0 0 -1px -1px;
 }
 
@@ -36,11 +36,11 @@
 }
 
 .goods-title {
-    color: $color2;
+    color: $black;
 }
 
 .goods-title:hover {
-    color: $color10;
+    color: $turquoise;
 }
 
 .goods-price {
@@ -53,8 +53,8 @@
     p {
         font-size: 20px;
         font-style: italic;
-        color: $color1;
-        background-color: $color6;
+        color: $white;
+        background-color: #e76926;
         padding: 5px;
         border-radius: 3px;
         margin: 0;

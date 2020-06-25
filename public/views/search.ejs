@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <title>Search</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <% include partials/head %>
+    <%- include('partials/head'); %>
 </head>
 
 <body>
-    <% include partials/header %>
+    <%- include('partials/header'); %>
 
     <main class="main">
         <div class="catalog-goods clearfix">
@@ -68,7 +68,7 @@
         <% } %>
     </main>
 
-    <% include partials/footer %>
+    <%- include('partials/footer'); %>
     <script>
         (function () {
             if (document.body.contains(document.getElementById("js-pagination"))) {

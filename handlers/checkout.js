@@ -1,9 +1,10 @@
 ﻿const jwt = require("jsonwebtoken");
 const session = require("express-session");
 const sqlite3 = require("sqlite3").verbose();
-const DB_PATH = "public/db/products.db";
-const db = new sqlite3.Database(DB_PATH);
-const SECRET = "abigsecret";
+const config = require("config");
+const dbConfig = config.get("dbConfig");
+const db = new sqlite3.Database(`${dbConfig.dbPath}/${dbConfig.dbName}`);
+const SECRET = config.get("jwtSecret");
 
 exports.checkoutProcessGet = function (req, res) {
     if (!res.locals.cart) {
@@ -45,7 +46,6 @@ exports.checkoutProcessGet = function (req, res) {
     });
 };
 
-
 exports.checkoutProcessPost = function (req, res) {
     if (!res.locals.cart) {
         return res.redirect(303, "/cart");
@@ -70,7 +70,8 @@ exports.checkoutProcessPost = function (req, res) {
         firstnameError: false,
         lastnameError: false,
         emailError: false
-    }
+    };
+    const token = req.cookies.token;
 
     if (!NAME_PATTERN.test(firstname)) {
         pageData.firstnameError = true;
@@ -109,8 +110,8 @@ exports.checkoutProcessPost = function (req, res) {
             });
         });
     } else {
-        if (session.token) {
-            jwt.verify(session.token, SECRET, function (err, decoded) {
+        if (token) {
+            jwt.verify(token, SECRET, function (err, decoded) {
                 if (err) {
                     console.log(err);
                 } else {

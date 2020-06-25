@@ -11,9 +11,9 @@
     padding: 8px 12px;
     margin-left: -1px;
     line-height: 1.25;
-    color: $color3;
-    background-color: $color1;
-    border: 1px solid $color16;
+    color: $black;
+    background-color: $white;
+    border: 1px solid $silver;
     @media all and (max-width: $desktop-width) {
         padding: 6px 5px;
     }
@@ -40,16 +40,16 @@
     }
 
     &.active .page-link {
-        color: $color1;
-        background-color: $color3;
-        border-color: $color3;
+        color: $white;
+        background-color: $turquoise;
+        border-color: $turquoise;
     }
 
     &.disabled .page-link {
-        color: $color13;
+        color: $lightGray;
         pointer-events: none;
         cursor: auto;
-        background-color: $color1;
-        border-color: $color16;
+        background-color: $white;
+        border-color: $silver;
     }
 }

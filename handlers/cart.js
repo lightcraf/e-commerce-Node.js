@@ -1,9 +1,10 @@
 ﻿const jwt = require("jsonwebtoken");
 const session = require("express-session");
-const SECRET = "abigsecret";
+const config = require("config");
+const csrfSecret = config.get("csrfSecret");
 
 exports.cartProcessGet = function (req, res) {
-    session.csrfToken = jwt.sign({ newcsrf: "bar" }, SECRET, { expiresIn: 14400 });
+    session.csrfToken = jwt.sign({ newcsrf: "bar" }, csrfSecret, { expiresIn: 14400 });
     const pageData = {
         csrf: session.csrfToken
     };

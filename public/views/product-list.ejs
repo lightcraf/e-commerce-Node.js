@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <title><%= pageTitle %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <% include partials/head %>
+    <%- include('partials/head'); %>
     <!-- <base href="/"> -->
 </head>
 
 <body>
-    <% include partials/header %>
+    <%- include('partials/header'); %>
     <main class="main">
         <div class="flex-row">
             <div class="flex-col-2">
@@ -108,7 +108,7 @@
     </main>
 
     
-    <% include partials/footer %>
+    <%- include('partials/footer'); %>
 
     <script>
         document.getElementsByClassName("filter-menu-btn")[0].addEventListener("click", function () {

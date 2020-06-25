@@ -10,6 +10,7 @@
 }
 
 .slide {
+    width: 100%;
     position: absolute;
     transition: 1s ease;
     opacity: 0;
@@ -35,16 +36,16 @@
     top: 50%;
     transform: translate(-50%,-50%);
     padding: 1.5%;
-    border: 2px solid $color10;
+    border: 2px solid $turquoise;
     background-color: transparent;
-    color: $color10;
+    color: $turquoise;
     text-transform: uppercase;
     text-align: center;
     z-index: 0;
 
     &:hover {
-        border: 2px solid $color1;
-        color: $color1;
+        border: 2px solid $white;
+        color: $white;
     }
 }
 
@@ -60,7 +61,7 @@
     line-height: 50px;
     width: auto;
     padding: 0 14px;
-    color: $color12;
+    color: $gray;
     font-size: 33px;
     -webkit-transition: 0.6s ease;
     -o-transition: 0.6s ease;
@@ -73,8 +74,8 @@
 }
 
 .slide-prev:hover, .slide-next:hover {
-    background-color: $color7;
-    color: $color1;
+    background-color: $darkGray;
+    color: $white;
 }
 
 .slide-indicators-container {
@@ -89,14 +90,14 @@
     height: 5px;
     width: 40px;
     margin: 0 5px;
-    background-color: $color13;
+    background-color: $lightGray;
     display: inline-block;
     -webkit-transition: background-color 0.1s ease;
     -o-transition: background-color 0.1s ease;
     transition: background-color 0.1s ease;
 
     &.active {
-        background-color: $color10;
+        background-color: $turquoise;
     }
 }
 
@@ -106,10 +107,10 @@
 }
 
 .feature {
-    background-color: $color14;
+    background-color: #f8f8f8;
 
     &:nth-child(2) {
-        background-color: $color15;
+        background-color: $gainsboro;
     }
 }
 
@@ -118,7 +119,7 @@
 
     i {
         font-size: 30px;
-        color: $color10;
+        color: $turquoise;
     }
 
     h5 {
@@ -129,7 +130,7 @@
 
     p {
         font-size: 14px;
-        color: $color17;
+        color: $lightGray;
         margin: 0;
     }
 }

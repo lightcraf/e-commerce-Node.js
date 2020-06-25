@@ -1,5 +1,5 @@
 ﻿.footer {
-    background-color: $color7;
+    background-color: $darkGray;
     min-height: 100px;
 }
 
@@ -13,13 +13,13 @@
 
 .footer-shop-about {
     font-size: 14px;
-    color: $color1;
+    color: $white;
 }
 
 .footer-nav-title {
     margin: 0;
     text-transform: uppercase;
-    color: $color17;
+    color: $lightGray;
 }
 
 .footer-nav-item {
@@ -27,20 +27,20 @@
 
     i {
         float: left;
-        color: $color10;
+        color: $turquoise;
         margin-right: 10px;
     }
 
     span {
-        color: $color1;
+        color: $white;
     }
 }
 
 .footer-nav-link {
-    color: $color1;
+    color: $white;
 
     &:hover {
-        color: $color10;
+        color: $turquoise;
     }
 }
 
@@ -51,12 +51,12 @@
     }
 
     i {
-        color: $color1;
+        color: $white;
     }
 }
 
 .footer-info {
-    background-color: $color12;
+    background-color: $gray;
 }
 
 .footer-copyright {

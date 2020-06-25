@@ -2,7 +2,7 @@
     padding: 10px 16px;
     margin: 20px 15px;
     list-style: none;
-    background-color: $color15;
+    background-color: $gainsboro;
 }
 
 .breadcrumb-item {
@@ -11,16 +11,16 @@
 
     & + &:before {
         padding: 8px;
-        color: $color2;
+        color: $black;
         content: "/\00a0";
     }
 
     & a {
-        color: $color3;
+        color: #0275d8;
         text-decoration: none;
     
         &:hover {
-            color: $color4;
+            color: #01447e;
             text-decoration: underline;
         }
     }

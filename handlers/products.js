@@ -1,6 +1,7 @@
 ﻿const sqlite3 = require("sqlite3").verbose();
-const DB_PATH = "public/db/products.db";
-const db = new sqlite3.Database(DB_PATH);
+const config = require("config");
+const dbConfig = config.get("dbConfig");
+const db = new sqlite3.Database(`${dbConfig.dbPath}/${dbConfig.dbName}`);
 
 exports.productCategory = function (req, res) {
     res.render("product-category.ejs");

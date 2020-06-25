@@ -1,7 +1,7 @@
 ﻿.auth-form-box {
-    background-color: $color1;
+    background-color: $white;
     margin: 80px auto;
-    border: 1px solid $color13;
+    border: 1px solid $lightGray;
     max-width: 350px;
     padding: 16px;
     border-radius: 5px;
@@ -15,7 +15,7 @@
 .auth-form-input {
     width: 100%;
     margin-top: 2px;
-    border: 1px solid $color16;
+    border: 1px solid $silver;
     height: 36px;
     padding: 0 5px;
 }
@@ -27,6 +27,6 @@
 
 .auth-form-error {
     font-size: 12px;
-    color: $color11;
+    color: $red;
     margin: 3px 0;
 }

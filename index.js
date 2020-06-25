@@ -3,23 +3,20 @@ const app = express();
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 
-app.set('views', __dirname + '/public/views');
+app.set("views", __dirname + "/public/views");
 app.set("view engine", "ejs");
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + "/public"));
 
-app.set('port', process.env.PORT || 8080);
+app.set("port", process.env.PORT || 8080);
+
+app.use(cookieParser());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(session({
-    // cookie: {
-    //     expires: new Date(Date.now() + 8*60*60*1000),
-    //     maxAge: 8*60*60*1000,
-    //     httpOnly: false,
-    //     path: "/"
-    // },
-    secret: 'keyboard cat',
+    secret: "keyboard cat",
     resave: false,
     saveUninitialized: false
 }));
@@ -28,19 +25,19 @@ const SECRET = "abigsecret";
 
 app.use(function (req, res, next) {
     // create a domain for this request
-    const domain = require('domain').create();
+    const domain = require("domain").create();
     // handle errors on this domain
-    domain.on('error', function (err) {
-        console.error('DOMAIN ERROR CAUGHT\n', err.stack);
+    domain.on("error", function (err) {
+        console.error("DOMAIN ERROR CAUGHT\n", err.stack);
         try {
             // failsafe shutdown in 5 seconds
             setTimeout(function () {
-                console.error('Failsafe shutdown.');
+                console.error("Failsafe shutdown.");
                 process.exit(1);
             }, 5000);
 
             // disconnect from the cluster
-            const worker = require('cluster').worker;
+            const worker = require("cluster").worker;
             if (worker) worker.disconnect();
 
             // stop taking new requests
@@ -52,13 +49,13 @@ app.use(function (req, res, next) {
             } catch (error) {
                 // if Express error route failed, try
                 // plain Node response
-                console.error('Express error mechanism failed.\n', error.stack);
+                console.error("Express error mechanism failed.\n", error.stack);
                 res.statusCode = 500;
-                res.setHeader('content-type', 'text/plain');
-                res.end('Server error.');
+                res.setHeader("content-type", "text/plain");
+                res.end("Server error.");
             }
         } catch (error) {
-            console.error('Unable to send 500 response.\n', error.stack);
+            console.error("Unable to send 500 response.\n", error.stack);
         }
     });
 
@@ -76,7 +73,8 @@ app.use(function (req, res, next) {
 });
 
 app.use(function (req, res, next) {
-    const token = session.token;
+    const token = req.cookies.token;
+
     if (token) {
         jwt.verify(token, SECRET, function (err, decoded) {
             if (err) {
@@ -95,7 +93,7 @@ app.use(function (req, res, next) {
     }
 });
 
-require('./routes.js')(app);
+require("./routes.js")(app);
 
 app.use(function (err, req, res, next) {
     console.error(err.stack);
@@ -106,7 +104,7 @@ app.use(function (req, res, next) {
     res.status(404).render("404.ejs");
 });
 
-app.listen(app.get('port'), function () {
-    console.log('Express started on http://localhost:' +
-        app.get('port') + '; press Ctrl-C to terminate.');
+app.listen(app.get("port"), function () {
+    console.log("Express started on http://localhost:" +
+        app.get("port") + "; press Ctrl-C to terminate.");
 });

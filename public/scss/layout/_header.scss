@@ -1,13 +1,13 @@
 ﻿.top-bar {
     display: flex;
     justify-content: end;
-    background-color: $color7;
+    background-color: $darkGray;
     line-height: 34px;
 }
 
 .top-bar-link {
     margin: 0 10px;
-    color: $color1;
+    color: $white;
     font-size: 14px;
 }
 
@@ -15,8 +15,8 @@
     align-items: center;
     min-height: 120px;
     text-align: center;
-    background: $color10;
-    color: $color1;
+    background: $turquoise;
+    color: $white;
     padding: 15px 0;
 }
 
@@ -26,12 +26,12 @@
 }
 
 .header-search-form {
-    line-height: 30px;
+    line-height: 36px;
     padding: 10px 0;
 
     input {
         border: none;
-        height: 30px;
+        height: 36px;
         vertical-align: middle;
         padding: 0 4px;
         width: 40%;
@@ -45,11 +45,11 @@
 .search-form-btn {
     border: none;
     width: 50px;
-    height: 30px;
+    height: 36px;
     vertical-align: middle;
-    color: $color1;
+    color: $white;
     font-size: 20px;
-    background-color: $color5;
+    background-color: #09725d;
     border-radius: 0 4px 4px 0;
 
     &:hover {
@@ -62,18 +62,18 @@
 }
 
 .shopping-cart {
-    color: $color1;
+    color: $white;
     font-size: 26px;
     position: relative;
 
     &:hover {
-        color: $color1;
+        color: $white;
     }
 
     span {
         position: absolute;
         font-size: 14px;
-        background-color: $color6;
+        background-color: #e76926;
         top: 0;
         left: 34px;
         padding: 1px 2px;

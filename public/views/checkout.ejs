@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <title>Checkout</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <% include partials/head %>
+    <%- include('partials/head'); %>
 </head>
 
 <body>
-    <% include partials/header %>
+    <%- include('partials/header'); %>
 
     <main class="main">
         <div class="cart-table-box">
@@ -105,7 +105,7 @@
         </form>
     </main>
 
-    <% include partials/footer %>
+    <%- include('partials/footer'); %>
 
     <script>
         document.getElementById("js-order-summary").addEventListener("submit", function (event) {

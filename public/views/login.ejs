@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <% include partials/head %>
+    <%- include('partials/head'); %>
 </head>
 
 <body>
-    <% include partials/header %>
+    <%- include('partials/header'); %>
 
     <main class="main">
         <form class="auth-form-box" action="/login" method="post">
@@ -25,7 +25,7 @@
         </form>
     </main>
     
-    <% include partials/footer %>
+    <%- include('partials/footer'); %>
 </body>
 
 </html>

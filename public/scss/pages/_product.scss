@@ -33,7 +33,7 @@
     width: auto;
     margin-top: -28px;
     padding: 5px 14px;
-    color: $color12;
+    color: $gray;
     font-size: 33px;
     transition: 0.6s ease;
 }
@@ -43,8 +43,8 @@
 }
 
 .product-slide-next:hover, .product-slide-prev:hover {
-    background-color: $color10;
-    color: $color1;
+    background-color: $turquoise;
+    color: $white;
 }
 
 .product-slide.fade {
@@ -71,35 +71,34 @@
 }
 
 .product-price {
-    color: $color17;
+    color: $gray;
     font-size: 30px;
     margin: 15px 0 36px 0;
 }
 
 .product-info {
     li {
-        color: $color17;
+        color: $lightGray;
         letter-spacing: 0.4px;
         padding-bottom: 13px;
     }
 
     span {
         text-transform: uppercase;
-        color: $color12;
+        color: $gray;
     }
 
     a {
-        text-decoration: none;
-        color: $color3;
+        color: #0275d8;
 
         &:hover {
-            color: $color4;
+            color: #01447e;
         }
     }
 }
 
 .product-description-box {
-    color: $color17;
+    color: $black;
     margin-top: 17px;
     font-size: 13px;
     letter-spacing: 0.3px;
@@ -127,15 +126,15 @@
 .cart-item-count-btn {
     width: 36px;
     height: 36px;
-    background-color: $color10;
-    color: $color1;
+    background-color: $turquoise;
+    color: $white;
     float: left;
     font-size: 25px;
     border: none;
 
     &:hover {
         cursor: pointer;
-        background-color: $color5;
+        background-color: #09725d;
     }
 
     &:active {
@@ -148,8 +147,8 @@
     width: 160px;
     text-align: center;
     float: left;
-    border-top: 1px solid $color10;
-    border-bottom: 1px solid $color10;
+    border-top: 1px solid $turquoise;
+    border-bottom: 1px solid $turquoise;
     border-left: none;
     border-right: none;
     line-height: 34px;
@@ -157,29 +156,29 @@
 }
 
 .btn-submit {
-    background-color: $color1;
-    color: $color7;
-    border: 2px solid $color7;
+    background-color: $white;
+    color: $darkGray;
+    border: 2px solid $darkGray;
     padding: 10px 22px;
     font-size: 16px;
     font-weight: 600;
     text-transform: uppercase;
 
     &:hover {
-        background-color: $color10;
-        border: 2px solid $color10;
-        color: $color1;
+        background-color: $turquoise;
+        border: 2px solid $turquoise;
+        color: $white;
         cursor: pointer;
     }
 }
 
 .product-in-cart-message {
-    border: 1px solid $color8;
+    border: 1px solid #008000;
     padding: 11px;
     display: inline-block;
 
     i {
-        color: $color8;
+        color: #008000;
     }
 }
 
@@ -198,7 +197,7 @@
   
 .modal-content {
     position: relative;
-    background-color: $color1;
+    background-color: $white;
     margin: auto;
     max-width: 600px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
@@ -219,27 +218,27 @@
 }
   
 .close-modal {
-    color: $color1;
+    color: $white;
     float: right;
     font-size: 28px;
     font-weight: bold;
   
     &:hover {
-        color: $color2;
+        color: $black;
         cursor: pointer;
     }
 }
   
 .modal-header {
     padding: 2px 16px;
-    background-color: $color10;
-    color: $color1;
+    background-color: $turquoise;
+    color: $white;
 }
   
 .modal-body {
     padding: 2px 16px;
-    border-top: 1px solid $color16;
-    border-bottom: 1px solid $color16;
+    border-top: 1px solid $silver;
+    border-bottom: 1px solid $silver;
     text-align: center;
 }
   
@@ -251,33 +250,33 @@
 
 .modal-btn-continue-shop {
     padding: 10px;
-    background-color: $color1;
-    color: $color7;
-    border: 1px solid $color7;
+    background-color: $white;
+    color: $darkGray;
+    border: 1px solid $darkGray;
     font-size: 16px;
     font-weight: 600;
     text-transform: uppercase;
     line-height: 18px;
 
     &:hover {
-        background-color: $color10;
-        border: 1px solid $color10;
-        color: $color1;
+        background-color: $turquoise;
+        border: 1px solid $turquoise;
+        color: $white;
     }
 }
 
 .modal-btn-view-cart {
     padding: 10px;
-    background-color: $color10;
-    color: $color1;
-    border: 1px solid $color10;
+    background-color: $turquoise;
+    color: $white;
+    border: 1px solid $turquoise;
     font-size: 16px;
     font-weight: 600;
     text-transform: uppercase;
     line-height: 18px;
 
     &:hover {
-        background-color: $color9;
-        border: 1px solid $color9;
+        background-color: #18a78a;
+        border: 1px solid #18a78a;
     }
 }

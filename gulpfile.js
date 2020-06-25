@@ -1,13 +1,13 @@
 const gulp = require('gulp');
 const sass = require('gulp-sass');
-const cssnano = require('gulp-cssnano');
+const cleanCSS = require('gulp-clean-css');
 
 sass.compiler = require('node-sass');
 
 gulp.task('sass', function () {
     return gulp.src('public/scss/main.scss')
         .pipe(sass())
-        .pipe(cssnano())
+        .pipe(cleanCSS())
         .pipe(gulp.dest('public/css'));
 });
 

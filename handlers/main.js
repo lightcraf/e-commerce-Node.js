@@ -1,6 +1,7 @@
 ﻿const sqlite3 = require("sqlite3").verbose();
-const DB_PATH = "public/db/products.db";
-const db = new sqlite3.Database(DB_PATH);
+const config = require("config");
+const dbConfig = config.get("dbConfig");
+const db = new sqlite3.Database(`${dbConfig.dbPath}/${dbConfig.dbName}`);
 
 exports.home = function (req, res) {
     res.render("index.ejs");
@@ -39,6 +40,7 @@ exports.search = function (req, res) {
         if (err) {
             throw err;
         }
+
         producerCount = row.count;
     });
 
@@ -47,6 +49,7 @@ exports.search = function (req, res) {
             if (err) {
                 throw err;
             }
+
             pageData.products = row;
             pageData.currentPage = page + 1;
             pageData.pages = Math.ceil(producerCount / ITEMS_PER_PAGE);

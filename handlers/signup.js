@@ -1,13 +1,15 @@
 ﻿const jwt = require("jsonwebtoken");
 const session = require("express-session");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const sqlite3 = require("sqlite3").verbose();
-const DB_PATH = "public/db/products.db";
-const db = new sqlite3.Database(DB_PATH);
-const SECRET = "abigsecret";
+const config = require("config");
+const dbConfig = config.get("dbConfig");
+const db = new sqlite3.Database(`${dbConfig.dbPath}/${dbConfig.dbName}`);
+const SECRET = config.get("jwtSecret");
+const csrfSecret = config.get("csrfSecret");
 
 exports.signupProcessGet = function (req, res) {
-    session.csrfToken = jwt.sign({ newcsrf: "bar" }, SECRET, { expiresIn: 14400 });
+    session.csrfToken = jwt.sign({ newcsrf: "bar" }, csrfSecret, { expiresIn: 14400 });
     const pageData = {
         usernameError: false,
         emailError: false,
@@ -68,9 +70,9 @@ exports.signupProcessPost = function (req, res) {
                                 if (err) {
                                     console.log(err);
                                 }
-                                const token = jwt.sign({ username: username }, SECRET, { expiresIn: 300 });
-                                session.token = token;
-                                req.isLogged = true;
+                                const token = jwt.sign({ username: username }, SECRET, { expiresIn: 1000*60*60 });
+
+                                res.cookie("token", token, { expires: new Date(Date.now() + 1000*60*60), httpOnly: true });
                                 return res.redirect(303, "/");
                             });
                         });

@@ -1,26 +1,30 @@
 {
-  "name": "my_packege",
+  "name": "e-commerce",
   "version": "1.0.0",
-  "description": "my app",
+  "description": "",
   "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "config": "^3.3.1",
+    "cookie-parser": "^1.4.5",
+    "ejs": "^3.1.3",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "sqlite3": "^4.2.0"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-sass": "^4.1.0",
+    "node-sass": "^4.14.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "bcrypt": "3.0.2",
-    "ejs": "2.6.1",
-    "express": "4.16.4",
-    "express-jwt": "5.3.1",
-    "express-session": "1.15.6",
-    "jsonwebtoken": "8.4.0",
-    "sqlite3": "4.0.6"
-  },
-  "devDependencies": {
-    "gulp": "4.0.0",
-    "gulp-cssnano": "2.1.3",
-    "gulp-sass": "4.0.2",
-    "node-sass": "4.11.0"
-  }
+  "license": "ISC"
 }
