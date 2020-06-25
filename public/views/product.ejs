@@ -151,47 +151,50 @@
             }
         });
 
-        document.getElementById("js-add-to-cart").addEventListener("click", function () {
-            const product = document.getElementById("js-main-product");
-            const productId = product.getAttribute("data-product_id");
-            const image = product.getAttribute("data-image");
-            const price = product.getAttribute("data-price");
-            const model = product.getAttribute("data-model");
-            const quantity = product.getAttribute("data-quantity");
+        document.getElementById("js-main-product").addEventListener("click", function (event) {
+            const target = event.target;
+            if (target.id === "js-add-to-cart") {
+                const product = document.getElementById("js-main-product");
+                const productId = product.getAttribute("data-product_id");
+                const image = product.getAttribute("data-image");
+                const price = product.getAttribute("data-price");
+                const model = product.getAttribute("data-model");
+                const quantity = product.getAttribute("data-quantity");
 
-            document.getElementsByClassName("js-cart-modal")[0].style.display = "block";
-            document.getElementsByClassName("js-cart-modal-item")[0].innerHTML = model;
- 
-            const productData = {
-                id: productId,
-                model: model,
-                href: window.location.pathname,
-                image: image,
-                quantity: 1,
-                price: price
-            };
+                document.getElementsByClassName("js-cart-modal")[0].style.display = "block";
+                document.getElementsByClassName("js-cart-modal-item")[0].innerHTML = model;
+    
+                const productData = {
+                    id: productId,
+                    model: model,
+                    href: window.location.pathname,
+                    image: image,
+                    quantity: 1,
+                    price: price
+                };
 
-            if (typeof (Storage) !== "undefined") {
-                const cart = JSON.parse(localStorage.getItem("cart")) || [];
-                let itemsInCart = 0;
+                if (typeof (Storage) !== "undefined") {
+                    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+                    let itemsInCart = 0;
 
-                for (let i = 0; i < cart.length; i++) {
-                    itemsInCart += parseInt(cart[i].quantity, 10);
-                }
-
-                document.getElementsByClassName("js-cart-modal-qty")[0].innerHTML = itemsInCart + 1;      
-
-                for (let i = 0; i < cart.length; i++) {
-                    if (cart[i].id === productId) {
-                        return;
+                    for (let i = 0; i < cart.length; i++) {
+                        itemsInCart += parseInt(cart[i].quantity, 10);
                     }
-                }
 
-                cart.push(productData);
-                localStorage.setItem("cart", JSON.stringify(cart));
-                getItemsInCart();
-                this.insertAdjacentHTML("beforebegin", '<div class="product-in-cart-message"><i class="fas fa-check"></i> This product is already in your cart</div>');
-                this.outerHTML = "";
+                    document.getElementsByClassName("js-cart-modal-qty")[0].innerHTML = itemsInCart + 1;      
+
+                    for (let i = 0; i < cart.length; i++) {
+                        if (cart[i].id === productId) {
+                            return;
+                        }
+                    }
+
+                    cart.push(productData);
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    getItemsInCart();
+                    target.insertAdjacentHTML("beforebegin", '<div class="product-in-cart-message"><i class="fas fa-check"></i> This product is already in your cart</div>');
+                    target.outerHTML = "";
+                }
             }
         });
     </script>
