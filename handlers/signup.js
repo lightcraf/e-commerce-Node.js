@@ -5,7 +5,7 @@ const sqlite3 = require("sqlite3").verbose();
 const config = require("config");
 const dbConfig = config.get("dbConfig");
 const db = new sqlite3.Database(`${dbConfig.dbPath}/${dbConfig.dbName}`);
-const SECRET = config.get("jwtSecret");
+const jwtSecret = config.get("jwtSecret");
 const csrfSecret = config.get("csrfSecret");
 
 exports.signupProcessGet = function (req, res) {
@@ -70,7 +70,7 @@ exports.signupProcessPost = function (req, res) {
                                 if (err) {
                                     console.log(err);
                                 }
-                                const token = jwt.sign({ username: username }, SECRET, { expiresIn: 1000*60*60 });
+                                const token = jwt.sign({ username: username }, jwtSecret, { expiresIn: 1000*60*60 });
 
                                 res.cookie("token", token, { expires: new Date(Date.now() + 1000*60*60), httpOnly: true });
                                 return res.redirect(303, "/");

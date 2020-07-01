@@ -4,7 +4,7 @@ const sqlite3 = require("sqlite3").verbose();
 const config = require("config");
 const dbConfig = config.get("dbConfig");
 const db = new sqlite3.Database(`${dbConfig.dbPath}/${dbConfig.dbName}`);
-const SECRET = config.get("jwtSecret");
+const jwtSecret = config.get("jwtSecret");
 
 exports.checkoutProcessGet = function (req, res) {
     if (!res.locals.cart) {
@@ -111,7 +111,7 @@ exports.checkoutProcessPost = function (req, res) {
         });
     } else {
         if (token) {
-            jwt.verify(token, SECRET, function (err, decoded) {
+            jwt.verify(token, jwtSecret, function (err, decoded) {
                 if (err) {
                     console.log(err);
                 } else {

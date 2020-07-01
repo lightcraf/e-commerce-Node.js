@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+const config = require("config");
+const jwtSecret = config.get("jwtSecret");
 
 app.set("views", __dirname + "/public/views");
 app.set("view engine", "ejs");
@@ -20,8 +22,6 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
-
-const SECRET = "abigsecret";
 
 app.use(function (req, res, next) {
     // create a domain for this request
@@ -76,7 +76,7 @@ app.use(function (req, res, next) {
     const token = req.cookies.token;
 
     if (token) {
-        jwt.verify(token, SECRET, function (err, decoded) {
+        jwt.verify(token, jwtSecret, function (err, decoded) {
             if (err) {
                 res.locals.isLogged = false;
                 next();

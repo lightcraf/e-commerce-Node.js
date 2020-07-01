@@ -1,7 +1,7 @@
 module.exports = {
     dbConfig: {
-        dbPath: "public/db",
-        dbName: "products.db"
+        dbPath: "db",
+        dbName: "database.db"
     },
     jwtSecret: "abigsecret",
     csrfSecret: "anothersecret"
